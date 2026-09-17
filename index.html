@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Second Dimension, Draft</title>
+<title>The Second Dimension</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
@@ -85,6 +85,17 @@ blockquote p{margin:0}
   color:var(--volt);margin:0;max-width:none}
 .sec.dark .pull p{color:#fff}
 .sec.dark .pull{border-left:4px solid var(--volt);padding-left:1.6rem}
+
+/* attributed source quotes (Cohan, Wilson, Kaikis) */
+.cite-quote{margin:2.4rem 0 2.8rem;padding:0 0 0 1.35rem;border-left:3px solid var(--volt);max-width:var(--measure)}
+.cite-quote p{font-family:Newsreader,Georgia,serif;font-style:italic;font-weight:400;
+  font-size:1.45rem;font-size:clamp(1.25rem,2.4vw,1.65rem);line-height:1.38;
+  color:var(--volt);margin:0 0 .55rem;max-width:none;letter-spacing:-.01em}
+.cite-quote .attr{display:block;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-style:normal;font-weight:500;
+  font-size:.82rem;line-height:1.35;color:var(--muted);letter-spacing:.01em;margin:0}
+.sec.dark .cite-quote p{color:#BDB6FF}
+.sec.dark .cite-quote{border-left-color:#8B7CFF}
+.sec.dark .cite-quote .attr{color:#9AA3B1}
 
 /* stats */
 .stats{display:flex;flex-wrap:wrap;display:grid;
@@ -305,7 +316,11 @@ figcaption{display:flex;gap:1.2rem;margin-top:1.1rem;max-width:50rem}
 <h3>Somebody else already measured the damage</h3>
 <div class="standout">
   <p class="label">Evidence</p>
-<p>Peter Cohan, who wrote <em>Great Demo!</em> and <em>Doing Discovery</em>, has published numbers on where forecasted deals actually go, often citing Gartner and other industry sources for the center of the range. <strong>On average, roughly forty-five percent of forecasted opportunities end in no decision</strong>, not lost to a competitor, evaporated. That average sits between org quality extremes he has also published: the best B2B vendors lose about twenty to twenty-five percent of forecasted deals to no decision; poor organizations run toward seventy-five to eighty-five percent. Sit with the phrase &ldquo;forecasted deals.&rdquo; Not pipeline. Not leads. Deals that a sales leader looked at and committed to a number.</p>
+<p>Peter Cohan, who wrote <em>Great Demo!</em> and <em>Doing Discovery</em>, has published numbers on where forecasted deals actually go, often citing Gartner and other industry sources for the center of the range. On average, roughly forty-five percent of forecasted opportunities end in no decision, not lost to a competitor, evaporated. That average sits between org quality extremes he has also published: the best B2B vendors lose about twenty to twenty-five percent of forecasted deals to no decision; poor organizations run toward seventy-five to eighty-five percent. Sit with the phrase &ldquo;forecasted deals.&rdquo; Not pipeline. Not leads. Deals that a sales leader looked at and committed to a number.</p>
+<aside class="cite-quote" cite="Peter Cohan">
+  <p>On average, roughly forty-five percent of forecasted opportunities end in no decision, not lost to a competitor, evaporated.</p>
+  <span class="attr">— Peter Cohan (citing Gartner and industry sources for the center of the range)</span>
+</aside>
 
 </div>
 <p>Roughly half of them, in a typical organization, don&rsquo;t get bought by anyone. They don&rsquo;t go to a competitor. They evaporate.</p>
@@ -395,9 +410,13 @@ figcaption{display:flex;gap:1.2rem;margin-top:1.1rem;max-width:50rem}
 
 <div class="standout" id="wilson-trust-tax">
   <p class="label">Key point</p>
-<p>Before anyone reads &ldquo;POV is a stage&rdquo; as &ldquo;always run a POC,&rdquo; take the point from <a href="https://www.linkedin.com/in/jchadwilson">Chad Wilson</a>, COO and Head of GTM Transformation at 2Win!: a POC request is often a <strong>trust tax</strong>, scar tissue from a bad prior vendor, a relevance gap the demo never closed, or discovery that was too shallow to earn belief. Teams that park sixty percent of SE capacity in POCs aren&rsquo;t running a sales motion; they&rsquo;re unpaid services. Sometimes the right move is a <strong>Yes, but</strong>: re-engage on discovery or the demo so the customer isn&rsquo;t hearing a hard no, and so the proof isn&rsquo;t necessary yet. When proof <em>is</em> required (bake-off, security mandate, economic buyer who won&rsquo;t move without evidence), govern it. Stages, entry gate, written criteria, hard end date. Re-engage when proof isn&rsquo;t earned yet. Govern what you must.</p>
+<p>Before anyone reads &ldquo;POV is a stage&rdquo; as &ldquo;always run a POC,&rdquo; take the point from <a href="https://www.linkedin.com/in/jchadwilson">Chad Wilson</a>, COO and Head of GTM Transformation at 2Win!: a POC request is often a trust tax, scar tissue from a bad prior vendor, a relevance gap the demo never closed, or discovery that was too shallow to earn belief. Teams that park sixty percent of SE capacity in POCs aren&rsquo;t running a sales motion; they&rsquo;re unpaid services. Sometimes the right move is a <strong>Yes, but</strong>: re-engage on discovery or the demo so the customer isn&rsquo;t hearing a hard no, and so the proof isn&rsquo;t necessary yet. When proof <em>is</em> required (bake-off, security mandate, economic buyer who won&rsquo;t move without evidence), govern it. Stages, entry gate, written criteria, hard end date. Re-engage when proof isn&rsquo;t earned yet. Govern what you must.</p>
 
 </div>
+<aside class="cite-quote" cite="Chad Wilson">
+  <p>A POC request is often a trust tax: scar tissue from a bad prior vendor, a relevance gap the demo never closed, or discovery that was too shallow to earn belief.</p>
+  <span class="attr">— Chad Wilson, COO and Head of GTM Transformation, 2Win!</span>
+</aside>
 
 <figure class="fig" id="fig-pov-hybrid">
 <div class="fig-art">
@@ -544,7 +563,11 @@ figcaption{display:flex;gap:1.2rem;margin-top:1.1rem;max-width:50rem}
 <p>So the failure isn&rsquo;t using demos as proof. The failure is choosing the demo series <em>because it feels lighter</em>, and then running it with none of the discipline you&rsquo;d apply to a POC. No documented success criteria. No end date set at the start. No readout mapping performance back to what was promised. Just a rolling sequence of sessions that stops when everyone gets tired.</p>
 <div class="standout">
   <p class="label">Evidence</p>
-<p>That&rsquo;s where Cohan&rsquo;s demo-waste number comes from, a different denominator from the no-decision rate above. Citing Consensus&rsquo;s 2020 Sales Engineering Compensation and Workload Report, he notes that across 847 organizations asked what percent of demos were unqualified or under-qualified, the <strong>median was thirty percent</strong>, demos he frames as wasted capacity. Not thirty percent at a few bad teams. A median, across a sample that size, which means the typical org burns roughly a third of its demo capacity producing nothing. Keep that figure separate from the ~45% no-decision average: one is about forecasted opportunities that evaporate; the other is about demo capacity that produces no progress.</p>
+<p>That&rsquo;s where Cohan&rsquo;s demo-waste number comes from, a different denominator from the no-decision rate above. Citing Consensus&rsquo;s 2020 Sales Engineering Compensation and Workload Report, he notes that across 847 organizations asked what percent of demos were unqualified or under-qualified, the median was thirty percent, demos he frames as wasted capacity. Not thirty percent at a few bad teams. A median, across a sample that size, which means the typical org burns roughly a third of its demo capacity producing nothing. Keep that figure separate from the ~45% no-decision average: one is about forecasted opportunities that evaporate; the other is about demo capacity that produces no progress.</p>
+<aside class="cite-quote" cite="Peter Cohan">
+  <p>Across 847 organizations, the median share of demos that were unqualified or under-qualified was thirty percent, wasted capacity.</p>
+  <span class="attr">— Peter Cohan, citing Consensus 2020 Sales Engineering Compensation and Workload Report</span>
+</aside>
 
 </div>
 <p>The fix isn&rsquo;t fewer demos. It&rsquo;s treating a proof-grade demo series as what it is: a vehicle inside Proof of Value, tiered against deal size, capped on duration, scoped to written criteria, and closed with a readout. If it earns the same investment as an advanced POC, it earns the same threshold and the same governance.</p>
@@ -764,15 +787,28 @@ figcaption{display:flex;gap:1.2rem;margin-top:1.1rem;max-width:50rem}
 <p>There&rsquo;s an operational payoff too. The blueprint shortens production rollout, because the design conversation already happened before the paper was signed. Time to value drops, which shows up later in retention.</p>
 <h3>The argument this gives you with leadership</h3>
 <p>Pitch a CRO on a better probability score and you&rsquo;re asking for trust. Pitch them on knowing when to commit delivery resources and you&rsquo;re solving a problem that has a budget attached.</p>
-<p>James Kaikis, co-founder of PreSales Collective, has argued that solutions leadership should own the customer journey from pre-sale through post-sale, SE, services, success, and support under one roof. Industry benchmarks make the revenue case for that handoff: Benchmarkit&rsquo;s 2025 SaaS metrics put expansion at a median of fifty-eight percent of Total New ARR for companies in the fifty-to-one-hundred-million ARR band. Same conclusion, different road. If most of the growth comes after the first signature, then the handoff between pre-sales and delivery isn&rsquo;t an administrative step at the end of a deal. It&rsquo;s the beginning of the majority of the revenue.</p><aside class="pull"><p>Past fifty million in ARR, expansion is most of new ARR. The handoff is where most of the revenue begins.</p></aside>
-<p>Stage four is where that handoff starts, or where it gets skipped.</p>
+<p>James Kaikis, co-founder of PreSales Collective, has argued that solutions leadership should own the customer journey from pre-sale through post-sale, SE, services, success, and support under one roof. Industry benchmarks make the revenue case for that handoff: Benchmarkit&rsquo;s 2025 SaaS metrics put expansion at a median of fifty-eight percent of Total New ARR for companies in the fifty-to-one-hundred-million ARR band. Same conclusion, different road. If most of the growth comes after the first signature, then the handoff between pre-sales and delivery isn&rsquo;t an administrative step at the end of a deal. It&rsquo;s the beginning of the majority of the revenue.</p>
+<aside class="cite-quote" cite="James Kaikis">
+  <p>Solutions leadership should own the customer journey from pre-sale through post-sale: SE, services, success, and support under one roof.</p>
+  <span class="attr">— James Kaikis, co-founder, PreSales Collective</span>
+</aside>
+<aside class="cite-quote" cite="Benchmarkit 2025">
+  <p>Past fifty million in ARR, expansion is most of new ARR. The handoff is where most of the revenue begins.</p>
+  <span class="attr">— Benchmarkit 2025 SaaS metrics (median expansion share of Total New ARR, $50–100M ARR band)</span>
+</aside>
+<p>Solution Acceptance is where that handoff starts, or where it gets skipped.</p>
 
 </div></section><section class="sec" id="s7"><div class="sechead"><span class="num">7</span><h2>Why this is finally practical</h2></div><div class="col">
 <p>None of this is new. I built a version of it into a CRM years ago, and it took custom objects, custom fields, and a reporting build that one person understood. It worked. It also had an obvious fragility: it depended on bespoke plumbing, and bespoke plumbing does not survive platform migrations or leadership changes.</p>
 <p>That fragility, not skepticism, is the real reason this kind of model hasn&rsquo;t spread. I&rsquo;ve never had a sales leader tell me the technical track was a bad idea. I&rsquo;ve had several tell me they couldn&rsquo;t put it in the roll-up. Those are completely different objections and only one of them is about the model.</p>
 <p>What&rsquo;s changed is that the second objection has mostly dissolved.</p>
-<p>The SE side now has purpose-built tooling. Platforms like Homerun PreSales let an SE curate the technical evaluation as structured work rather than notes in a deal record, then push that state into the CRM so the two tracks sit side by side on the same opportunity. The model works in Opine, Clari fields, or a spreadsheet. The discipline is the point; the tool is subordinate.</p>
-<p>From there it feeds forward. Conversation intelligence like Gong is a <strong>signal layer</strong>, language from real calls into structured fields, so &ldquo;the customer articulated the value back to us&rdquo; becomes observable rather than a claim the SE makes about themselves. Gong is not a technical stage system; it does not replace the SE-owned track. Revenue platforms like Clari are built to ingest additional signal and weight it against stage-based probability, which is precisely the shape of the problem. Product telemetry from an evaluation environment shows usage curves, which is the difference between &ldquo;the POC is going well&rdquo; and a graph of who logged in and when they stopped. Mutual action plans and their completion state are structured objects now.</p>
+<p>The SE side now has purpose-built tooling. Platforms like Homerun PreSales give the SE a <strong>single workspace</strong> for the technical evaluation, not a pile of notes in a deal record and not another CRM customization project. From that workspace they can pull conversation data from tools like Gong so buyer language lands as structured signal (&ldquo;the customer articulated the value back to us&rdquo; becomes observable, not a self-report), and they can sync bi-directionally with Jira so product gaps, blockers, and engineering follow-ups stay attached to the same deal the SE is working. The point is not to replace Gong or Jira. It is to stop the SE from living in five tabs while the technical track stays invisible to the forecast.</p>
+<p>That workspace should still enrich the CRM and the confidence around the number. Technical stage, proof status, and the signals that explain them push into the opportunity so the commercial ladder and the technical track sit side by side. Revenue platforms like Clari can then weight that additional signal against stage-based probability, which is precisely the shape of the problem. Product telemetry from an evaluation environment shows usage curves, the difference between &ldquo;the POC is going well&rdquo; and a graph of who logged in and when they stopped. Mutual action plans and their completion state are structured objects now. The model still works in Opine, Clari fields, or a spreadsheet if that is what you have. The discipline is the point; the tool is subordinate.</p>
+
+<aside class="cite-quote" cite="Brian Lewis" id="brian-lewis">
+  <p>If you&rsquo;re still managing presales with spreadsheets, CRM objects, and hope&hellip; you&rsquo;re falling waaay behind your peers and your competitors.</p>
+  <span class="attr">— Brian Lewis, Co-Founder and CRO, Homerun Presales</span>
+</aside>
 
 <p>None of that required custom code. The plumbing is configuration, which means the second dimension can be recorded, scored, and rolled up without a build.</p>
 <h3>The rule: distance and direction</h3>
@@ -842,6 +878,12 @@ figcaption{display:flex;gap:1.2rem;margin-top:1.1rem;max-width:50rem}
 <p><strong>Capture the behavioral signals alongside it.</strong> Proof entry gate cleared. Blueprint session held. Paid vehicle accepted. Technical decision maker&rsquo;s recommendation made. These are binary, they&rsquo;re either true or they aren&rsquo;t, and they explain <em>why</em> a deal sits where it does on the grid.</p>
 <p><strong>Output a confidence band with a stated reason, not a replacement number.</strong> A deal sitting two steps below the alignment line does not deserve the number its stage is carrying, and the model should say so, in words, in the deal record, where the AE and the SE can both see it and argue about it.</p>
 <p>That last part matters more than the math. The value isn&rsquo;t a cleverer number. It&rsquo;s that the disagreement between the commercial read and the technical read becomes visible instead of getting averaged into silence.</p>
+
+<p>When that tooling is in place, the outcomes Brian Lewis and Homerun PreSales publish for customer teams are the kind of lift that makes the plumbing argument concrete:</p>
+<aside class="cite-quote" cite="Brian Lewis" id="brian-lewis-stats">
+  <p>A 15% increase in deal win rates, a 16% decrease in sales cycle durations, 6 hours saved per week per sales engineer, and 4 weeks saved in new hire onboarding.</p>
+  <span class="attr">— Brian Lewis, Co-Founder and CRO, Homerun Presales (customer results published with Homerun)</span>
+</aside>
 
 <div class="standout action" id="s7-monday">
   <p class="label">For the forecast call</p>
