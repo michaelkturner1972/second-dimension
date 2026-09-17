@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Second Dimension, Draft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0C0F14; --ink-2:#161B23;
+  --paper:#FFFFFF; --wash:#EEF0F4;
+  --rule:#D5DAE1; --muted:#5A6371;
+  --volt:#4B3BF5; --volt-soft:#E8E6FF;
+  --track:#4B3BF5; --flat:#8A93A1;
+  --measure:42rem;
+
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);overflow-x:hidden;
+  font-family:Newsreader,Georgia,serif;font-size:20px;line-height:1.62;font-weight:400}
+.wrap{max-width:74rem;margin:0 auto;padding:0 2.5rem}
+::selection{background:var(--volt);color:#fff}
+
+/* progress */
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--volt);z-index:9}
+
+/* ---------- hero ---------- */
+
+.hero{background:var(--ink);color:#fff;padding:5rem 0 4rem;position:relative;overflow:hidden}
+.hero .kicker{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:500;
+  font-size:.9rem;color:var(--volt);margin:0 0 2.2rem;letter-spacing:.005em}
+.hero h1{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;
+  font-size:7rem;font-size:clamp(3.4rem,11vw,8.5rem);line-height:.88;letter-spacing:-.045em;
+  margin:0 0 2rem;max-width:13ch;color:#fff}
+.hero .deck{font-size:1.6rem;font-size:clamp(1.3rem,2.4vw,1.75rem);line-height:1.38;max-width:34ch;
+  margin:0 0 3rem;color:#B9C1CD}
+.hero .deck b{color:#fff;font-weight:500}
+.byline{font-family:'Bricolage Grotesque',sans-serif;font-size:.92rem;font-weight:500;color:#fff}
+.byline span{display:block;color:#7F8897;font-weight:500;margin-top:.3rem;font-size:.85rem}
+
+.motif{margin:4rem 0 0}
+.motif svg{display:block;width:100%;height:auto;max-width:64rem}
+.motif .m-lab{font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:500;fill:#7F8897}
+.motif .bar-s{fill:#6E7889}
+.motif .bar-t{fill:var(--volt)}
+.motif .tick{fill:#fff}
+
+.stage-note{font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:.88rem;line-height:1.45;color:var(--muted);margin:0 0 1.2rem;max-width:42rem}
+.stage-note em{font-family:Newsreader,Georgia,serif;font-style:italic;font-weight:400;color:var(--ink);font-size:1.05em}
+/* ---------- sections ---------- */
+.sec{padding:5.5rem 0;border-top:1px solid var(--rule)}
+.sec:first-of-type{border-top:0}
+.sechead{display:flex;align-items:flex-start;gap:2.2rem;margin:0 0 3rem}
+.num{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+  font-size:3.8rem;font-size:clamp(2.6rem,6vw,4.4rem);line-height:.8;color:var(--volt);
+  letter-spacing:-.05em;flex:0 0 auto}
+h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;
+  font-size:2.7rem;font-size:clamp(1.9rem,4vw,3.1rem);line-height:.98;letter-spacing:-.035em;
+  margin:0;max-width:19ch}
+.col p.col ul.col ol{max-width:var(--measure)}
+h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.35rem;
+  line-height:1.15;letter-spacing:-.02em;margin:3.4rem 0 1.1rem;max-width:34ch}
+p{margin:0 0 1.2rem}
+strong{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.9em;letter-spacing:-.01em}
+em{font-style:italic}
+ul{margin:0 0 1.2rem;padding-left:1.1rem}
+li{margin-bottom:.55rem}
+blockquote{margin:1.8rem 0;padding-left:1.3rem;border-left:3px solid var(--volt);color:var(--muted)}
+blockquote p{margin:0}
+
+/* inverted section, full-bleed */
+.sec.dark{background:var(--ink);color:#DDE2E9;border-top:0;
+  margin:0 calc(-50vw + 50%);padding:6rem calc(50vw - 50%)}
+.sec.dark h2.sec.dark h3{color:#fff}
+.sec.dark strong{color:#fff}
+.sec.dark .num{color:var(--volt)}
+.sec.dark blockquote{color:#9AA3B1}
+
+/* pull quotes */
+.pull{margin:3.4rem 0;max-width:60rem}
+.pull p{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;
+  font-size:2rem;font-size:clamp(1.5rem,3.2vw,2.25rem);line-height:1.08;letter-spacing:-.03em;
+  color:var(--volt);margin:0;max-width:none}
+.sec.dark .pull p{color:#fff}
+.sec.dark .pull{border-left:4px solid var(--volt);padding-left:1.6rem}
+
+/* stats */
+.stats{display:flex;flex-wrap:wrap;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));
+  gap:0;margin:0 0 3.4rem;border-top:3px solid var(--ink)}
+.stat{flex:1 1 12rem;padding:1.5rem 1.4rem 1.7rem 0;border-bottom:1px solid var(--rule)}
+.stat .v{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+  font-size:2.2rem;font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:.95;letter-spacing:-.04em;color:var(--volt)}
+.stat .k{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:500;
+  font-size:.78rem;line-height:1.35;color:var(--muted);margin-top:.7rem;max-width:18ch}
+
+/* tables */
+table{border-collapse:collapse;width:100%;max-width:52rem;margin:2.2rem 0;
+  font-family:'Bricolage Grotesque',sans-serif;font-size:.84rem;font-weight:500}
+th{text-align:left;font-weight:700;padding:.7rem .8rem .7rem 0;border-bottom:3px solid var(--ink);vertical-align:bottom}
+td{padding:.8rem .8rem .8rem 0;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--muted);font-weight:500}
+td:first-child{color:var(--ink);font-weight:700}
+
+/* figures */
+.fig{margin:4rem 0;width:100%;max-width:60rem}
+.fig-art{background:var(--wash);padding:2rem 1.6rem}
+.sec.dark .fig-art{background:#fff}
+.fig-art svg{display:block;width:100%;height:auto}
+figcaption{display:flex;gap:1.2rem;margin-top:1.1rem;max-width:50rem}
+.fig-n{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:.88rem;
+  color:var(--volt);flex:0 0 auto;letter-spacing:-.01em;margin-right:1.2rem}
+.fig-body{font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:.82rem;
+  line-height:1.5;color:var(--muted)}
+.fig-body b{display:block;color:var(--ink);font-weight:700;margin-bottom:.3rem}
+
+/* svg internals */
+.fig-art text{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:500}
+.fig-art .t{font-size:14px;fill:var(--ink)}
+.fig-art .ts{font-size:12px;fill:var(--muted)}
+.fig-art .th{font-size:14px;font-weight:700;fill:var(--ink)}
+.fig-art .box{fill:#fff;stroke:var(--rule)}
+.fig-art .leader{stroke:var(--flat);stroke-width:.75;stroke-dasharray:3 3;fill:none}
+.fig-art .arr{stroke:var(--flat);stroke-width:1.5;fill:none}
+.fig-art .c-gray>rect{fill:#DFE3E9;stroke:#6E7889}
+.fig-art .c-gray>.th{fill:#2B313B}.fig-art .c-gray>.ts{fill:#4A525E}
+.fig-art .c-purple>rect{fill:#E3E0FF;stroke:#4B3BF5}
+.fig-art .c-purple>.th{fill:#241C8C}.fig-art .c-purple>.ts{fill:#392CC4}
+.fig-art .c-green>rect{fill:#DDF0D3;stroke:#3B6D11}
+.fig-art .c-green>.th{fill:#27500A}.fig-art .c-green>.ts{fill:#3B6D11}
+.fig-art .c-amber>rect{fill:#FCE9C9;stroke:#9A5C08}
+.fig-art .c-amber>.th{fill:#633806}.fig-art .c-amber>.ts{fill:#854F0B}
+.fig-art .c-red>rect{fill:#FBDEDE;stroke:#BC2E2E}
+.fig-art .c-red>.th{fill:#791F1F}.fig-art .c-red>.ts{fill:#A32D2D}
+
+/* notes */
+.notes{background:var(--ink-2);color:#C3CAD4;padding:5rem 0 6rem}
+.notes h2{color:#fff;margin:0 0 .7rem;font-size:2.3rem;font-size:clamp(1.8rem,4vw,2.6rem)}
+.notes .lede{color:#828C9B;font-size:1.05rem;max-width:40ch;margin:0 0 3rem}
+.notes p{max-width:52rem;font-size:.98rem;line-height:1.6;color:#AEB7C3;margin:0 0 1.15rem}
+.notes strong{color:var(--volt);font-size:.9em}
+
+@media (max-width:820px){
+  body{font-size:18px}
+  .wrap{padding:0 1.25rem}
+  .hero{padding:3.5rem 0 3rem}
+  .sec{padding:3.5rem 0}
+  .sechead{flex-direction:column;gap:.5rem;margin-bottom:1.8rem}
+  .fig-art{padding:1.1rem .7rem}
+  .stat{padding-right:0}
+}
+@media print{
+  #prog{display:none}
+  body{font-size:11pt;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .hero,.sec.dark,.notes{background:#fff;color:#000}
+  .hero h1,.hero .deck,.hero .byline,.sec.dark h2,.notes h2{color:#000}
+  .sec.dark:before{display:none}
+  .fig{page-break-inside:avoid}
+}
+
+/* ---------- reader standouts ---------- */
+.standout{
+  margin:1.6rem 0;padding:1.2rem 1.3rem 1.25rem 1.25rem;
+  background:#1A2030;color:#E8ECF2;border-left:6px solid var(--volt);
+  border-radius:0 6px 6px 0;max-width:var(--measure);
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.standout strong{color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.9em;letter-spacing:-.01em}
+.standout a{color:#C4BFFF}
+
+.standout > :first-child{margin-top:0}
+.standout > :last-child{margin-bottom:0}
+.standout .label{
+  display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;
+  font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;
+  color:#A8A0FF;margin:0 0 .7rem;
+}
+.standout.wide{max-width:none}
+.standout.action{
+  background:#241C5C;color:#F0EEFF;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.standout.disclosure{
+  background:#252B38;color:#DDE2E9;border-left-color:#8A93A1;
+}
+.standout.disclosure .label{color:#9AA3B1}
+.sec.dark .standout{
+  background:#1A1F28;border-left-color:var(--volt);color:#DDE2E9;
+}
+.sec.dark .standout .label{color:#A8A0FF}
+.sec.dark .standout.action{background:#22205A}
+.sec.dark .standout.disclosure{border-left-color:#6E7889}
+.sec.dark .standout.disclosure .label{color:#9AA3B1}
+.hero .deck{max-width:38ch}
+.lede-pre{font-size:1.15rem;line-height:1.55;max-width:46rem;margin:3.5rem 0 0}
+.notes .owed{color:#E8A838}
+.notes ul{max-width:52rem;font-size:.98rem;line-height:1.6;color:#AEB7C3;margin:0 0 1.5rem;padding-left:1.2rem}
+.notes li{margin-bottom:.5rem}
+@media print{
+  .standout{
+    break-inside:avoid;
+    background:#1A2030!important;
+    color:#E8ECF2!important;
+    border-left:6px solid #4B3BF5!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+  .standout.action{
+    background:#241C5C!important;
+    color:#F0EEFF!important;
+  }
+  .standout .label{color:#A8A0FF!important;}
+  .standout strong{color:#fff!important;}
+  .standout.disclosure{background:#252B38!important;color:#DDE2E9!important;border-left-color:#8A93A1!important;}
+  .standout.disclosure .label{color:#9AA3B1!important;}
+}
+
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">A pre-sales methodology for leaders who own the number</p>
+    <h1>The second dimension</h1>
+    <p class="deck">Your forecast has one slot for two truths: how far the commercial process has traveled, and where you actually stand in the technical evaluation. It averages them. <b>That average is why Commit still surprises you, and why SE capacity disappears into proofs that were never going to convert.</b></p>
+    <p class="byline">Michael Turner<span>Pre-sales executive. Twenty years building technical sales organizations.</span></p>
+    <div class="motif" aria-hidden="true">
+      <svg viewBox="0 0 1000 110" role="img" aria-label="Sales stages above, technical evaluation stages below">
+      <rect class="bar-s" x="0" y="28" width="1000" height="14"/>
+      <rect class="tick" x="0.0" y="14.0" width="3" height="42"/>
+      <rect class="tick" x="166.7" y="14.0" width="3" height="42"/>
+      <rect class="tick" x="306.8" y="14.0" width="3" height="42"/>
+      <rect class="tick" x="492.4" y="14.0" width="3" height="42"/>
+      <rect class="tick" x="679.9" y="14.0" width="3" height="42"/>
+      <rect class="tick" x="842.8" y="14.0" width="3" height="42"/>
+      <rect class="tick" x="997.2" y="14.0" width="3" height="42"/>
+      <rect class="bar-t" x="0" y="78" width="1000" height="14"/>
+      <rect class="tick" x="0.0" y="64.0" width="3" height="42"/>
+      <rect class="tick" x="109.8" y="64.0" width="3" height="42"/>
+      <rect class="tick" x="255.7" y="64.0" width="3" height="42"/>
+      <rect class="tick" x="424.2" y="64.0" width="3" height="42"/>
+      <rect class="tick" x="600.4" y="64.0" width="3" height="42"/>
+      <rect class="tick" x="774.6" y="64.0" width="3" height="42"/>
+      <rect class="tick" x="922.3" y="64.0" width="3" height="42"/>
+      <rect class="tick" x="997.2" y="64.0" width="3" height="42"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="standout lede-pre" id="lede">
+  <p class="label">What you get</p>
+<p>This is written for pre-sales leaders who need to bolster or solidify their seat at the forecast table, and for sales SVPs and CROs who are tired of late-stage deals that looked healthy on the ladder and dead on the ground. By the end you&rsquo;ll have three things you can run this quarter without a twelve-month RevOps program: an SE-owned technical track that sits beside your sales stages, a gap read (distance and direction) you can use on the forecast call, and an entry gate so proof spend only goes to deals that can survive friction. Across typical B2B orgs, roughly half of forecasted opportunities end in no decision, not lost to a competitor, evaporated. That is mostly a technical-evaluation failure showing up as a forecasting failure. Here&rsquo;s the deal that makes the whole argument visible.</p>
+
+</div>
+
+<section class="sec" id="s1"><div class="sechead"><span class="num">1</span><h2>The POC that was always going to end this way</h2></div><div class="col">
+<p>The first call runs long and ends well. Somewhere in the last ten minutes someone says &ldquo;could we get a POC going?&rdquo; and everyone agrees that would be a great next step.</p>
+<p>Nobody asks what it&rsquo;s supposed to prove.</p>
+<p>A few days later, or the following week, it kicks off. Maybe that next call is a real kickoff. Most likely you just roll with the information you got in the original discovery call. Good energy, full room. The customer&rsquo;s team watches while your SE walks them through setup and the integrations they&rsquo;ll want, and some of those integrations may or may not give you trouble, because nobody gathered the requirements well enough beforehand to know. You&rsquo;re finding out live, in front of them.</p>
+<p>Week two, attendance drops. Week three, you&rsquo;re chasing your champion for a time that works. The POC was scoped to let them see the product, and they&rsquo;ve seen it, so there&rsquo;s nothing pulling them back.</p>
+<p>So you offer more. Another use case, another integration, a feature they mentioned once. You&rsquo;re not expanding the evaluation, you&rsquo;re manufacturing a reason for them to show up. Now the thing that was supposed to run two weeks is running six.</p>
+<p>Then something breaks. Something always breaks, and it&rsquo;s never anything clever. This time it&rsquo;s their proxy. Last time it was their authentication method, or how you integrate with a REST API versus a webhook. You get the idea. The integration issue isn&rsquo;t uncommon; the break is ordinary. What&rsquo;s not ordinary is walking in before you understood their environment or what this was supposed to prove.</p>
+<p>Watch what happens next, because this is the moment the deal is actually decided. The customer doesn&rsquo;t troubleshoot with you. And even if they do, it isn&rsquo;t with the right team or the right resources, and finding time with the right people on their side grinds on the timeline and on their SMEs. They report the failure. They write it up, they forward it to their director, and the tone is <em>this is what we found</em>. You spend the next four days in an internal fire drill proving the failure was theirs and not yours, and you&rsquo;re right, and it doesn&rsquo;t matter. They were never partnering with you. They were evaluating you, and you handed them a finding.</p>
+<p>Day forty, a new use case appears. It was always a requirement, they just hadn&rsquo;t mentioned it. You extend again.</p>
+<p>Day sixty, you wrap. The readout goes fine. Everyone is complimentary. And then someone mentions that budget for this doesn&rsquo;t open until next fiscal, which is three quarters out, and the whole room nods like this is new information.</p>
+<p>So you keep them warm for nine months and run the POC again.</p>
+<p>Here&rsquo;s the part that matters for everything after this. That deal was in the forecast the entire time. It had an amount, a close date, a stage. It walked from Discovery to Solution Development to Solution Validation, and it got to Solution Validation <em>because</em> a POC kicked off, which is the only thing the stage model knows how to see. Sixty days of accumulating evidence that this deal had no chance, and none of it touched the number. The forecast tracked the deal&rsquo;s activity. It could not see the deal&rsquo;s standing.</p>
+<p>Those are two different things, and one of them is the one you care about.</p>
+
+</div></section><section class="sec dark" id="s2"><div class="sechead"><span class="num">2</span><h2>One ladder, two signals</h2></div><div class="col">
+<p>Open any CRM and the forecast works the same way. Stages carry probabilities. Probabilities roll into categories. Something like zero and ten percent for pipeline, thirty and fifty for best case, seventy and ninety for commit, a hundred for closed. The names differ by company. The machinery does not.</p>
+<p>That ladder encodes exactly one thing: how far along the commercial process has traveled. Has the buyer engaged, admitted a problem, shared evaluation criteria, accepted pricing, named a signatory. Reasonable questions, and the answers do predict something.</p>
+<p>They just don&rsquo;t predict the part of the deal that pre-sales can see.</p>
+<p>Because a parallel evaluation is running the whole time, and it has its own state. Do the technical stakeholders believe this solves their problem. Have they said so out loud. Has anything been proven, and proven against criteria they wrote down, or against a demo they watched. Is the architect who will actually own this thing on your side, neutral, or quietly sponsoring a competitor.</p>
+<p>None of that has a field. So it gets crammed into the same stage value as everything else, and the stage value averages it away.</p>
+<h3>&ldquo;We already run MEDDPICC&rdquo;</h3>
+<p>This is where a sales leader stops me, and it&rsquo;s a fair stop. A good qualification framework does ask technical questions. MEDDPICC wants decision criteria, competition, and a champion. MEDDIC, SPICED, Command of the Message, they all reach into the same territory. So the objection is that the second dimension already exists, and it&rsquo;s called qualification.</p>
+<p>It doesn&rsquo;t, and here&rsquo;s the distinction that matters.</p>
+<p>MEDDPICC tells you what the test is. It does not tell you your score on the test.</p>
+<p>Decision criteria captures which requirements the evaluation will be judged against. Useful, necessary, and completely silent on whether you&rsquo;ve satisfied them, whether anyone technical watched you satisfy them, or whether the competitor satisfied them better last Tuesday. Competition captures who else is in the deal. It doesn&rsquo;t capture who&rsquo;s winning the technical evaluation, which is a different question with a different answer and a different person who knows it.</p>
+<p>Champion has the same problem in a sharper form. A champion in a qualification framework is a commercial ally, somebody who will spend capital for you internally. The technical decision maker may be a different human being entirely, may outrank your champion on this specific question, and may be quietly unconvinced. Plenty of deals have an enthusiastic champion and a skeptical architect, and only one of those two writes the recommendation.</p>
+
+<div class="standout">
+  <p class="label">Key point</p>
+<p>Picture a deal whose MEDDPICC card looks green. Metrics filled in. Economic buyer named. Decision criteria documented. Paper process mapped. Identify pain checked. Champion scored strong. Competition listed. The AE can walk you through every letter. On the forecast call it sits in Commit.</p>
+  <p>Meanwhile the technical track is still at Solution Positioning, maybe early Proof of Value if you&rsquo;re generous. No success criteria signed. No technical decision maker has watched you satisfy a requirement they wrote. The architect who will own the stack has taken one overview demo and gone quiet. The card is green. The technical stage is red. Same deal, opposite reads, and the commercial ladder has no field that can hold the conflict. That is the distinction in one opportunity: MEDDPICC graded the exam design. It never graded the paper.</p>
+
+</div>
+
+<p>There&rsquo;s a structural issue too. Qualification scores are authored by the AE, from the AE&rsquo;s vantage, out of what the customer told them. They&rsquo;re a measure of how well the deal is <em>understood</em>, which is not a measure of how well the solution has been <em>proven</em>. Those correlate, and a deal can be beautifully qualified and technically dead.</p>
+<p>And in most organizations the score sits beside the forecast as a coaching artifact rather than inside it. It informs the conversation in the pipeline review. It doesn&rsquo;t move the number.</p>
+<p>So qualification frameworks and the technical track aren&rsquo;t competitors. They answer different questions. One asks whether you understand the deal. The other asks where you stand in it.</p><aside class="pull"><p>MEDDPICC tells you what the test is. It does not tell you your score on the test.</p></aside>
+<h3>Technical win and commercial win come apart</h3>
+<p>This is the part that makes the whole argument necessary, and most forecast models assume it away.</p>
+<p>Deals close lost after winning the technical evaluation. The technical decision maker recommended you, formally, in writing. Then the budget moved. Or the sponsor left. Or the parent company standardized on something else. Or the competitor gave the deal away.</p>
+<p>And deals close won after losing it. It happens more than anyone likes to admit. The competitor&rsquo;s architecture was better and everyone technical knew it, and then procurement got involved, or the contract vehicle worked in your favor, or the incumbent relationship held, or the price gap was too wide to justify, or the timeline collapsed and you were the only option that could deploy in the window.</p>
+<p>If technical standing reliably predicted commercial standing, you could keep using one ladder and be fine. It doesn&rsquo;t. The two variables correlate, they don&rsquo;t converge, and a single probability number is being asked to carry both.</p>
+<p>So it carries the average. Which is wrong in both directions, and worse, wrong in a way that looks precise.</p>
+<h3>Somebody else already measured the damage</h3>
+<div class="standout">
+  <p class="label">Evidence</p>
+<p>Peter Cohan, who wrote <em>Great Demo!</em> and <em>Doing Discovery</em>, has published numbers on where forecasted deals actually go, often citing Gartner and other industry sources for the center of the range. <strong>On average, roughly forty-five percent of forecasted opportunities end in no decision</strong>, not lost to a competitor, evaporated. That average sits between org quality extremes he has also published: the best B2B vendors lose about twenty to twenty-five percent of forecasted deals to no decision; poor organizations run toward seventy-five to eighty-five percent. Sit with the phrase &ldquo;forecasted deals.&rdquo; Not pipeline. Not leads. Deals that a sales leader looked at and committed to a number.</p>
+
+</div>
+<p>Roughly half of them, in a typical organization, don&rsquo;t get bought by anyone. They don&rsquo;t go to a competitor. They evaporate.</p>
+<p>A loss to a competitor is a commercial event, and the commercial ladder has some chance of seeing it coming. No decision is different. No decision is what happens when nothing was ever proven to anyone who could act on it.</p>
+<p>And that has a cause, which is the useful part. No decision is overwhelmingly what a premature proof produces. You ran the POC before discovery was good enough to know what needed proving, or before the customer believed enough to care whether it got proven. The evaluation ends without a verdict because there was never a question on the table sharp enough to have one. Nothing was disproven, so nobody can say no. Nothing was proven, so nobody can say yes. The deal doesn&rsquo;t die, it just stops, and it sits in the forecast until somebody finally moves the close date out for the fourth time.</p><aside class="pull"><p>Nothing was disproven, so nobody can say no. Nothing was proven, so nobody can say yes.</p></aside>
+<p>That&rsquo;s a technical-evaluation failure showing up as a forecasting failure, and the stage model is structurally incapable of catching it, because the deal kept advancing the whole way down.</p>
+<p>The POC in section one was a no-decision deal from about week three. Everyone on the technical side could feel it. The forecast said commit.</p>
+
+</div></section><section class="sec" id="s3"><div class="sechead"><span class="num">3</span><h2>The track that travels</h2></div><div class="col">
+<p>Here&rsquo;s the thing about sales stages: they&rsquo;re interchangeable and not worth arguing about.</p>
+<p>Every company names them differently and every one of them runs the same arc. Qualification, discovery, solution development, solution validation, proposal and next steps, closed won or closed lost. Change the labels, reorder two of them, add a procurement stage if you sell to government. The shape doesn&rsquo;t move. Sales stages are commodity.</p>
+<p>The technical evaluation stages are the portable asset. They work underneath any sales methodology, which is precisely the argument for modeling them as their own track instead of burying them as activities inside somebody else&rsquo;s stage definitions. A technical evaluation has a beginning, a set of gates, and a completion point, and those exist whether or not the CRM has a place to put them.</p>
+<p>Chris White, who wrote <em>The Six Habits of Highly Effective Sales Engineers</em>, makes the point that the SE owns the technical win, and that deals don&rsquo;t close without SEs establishing one. He&rsquo;s right, and I&rsquo;d add the operational consequence for enterprise ACV: if the SE owns it, the SE&rsquo;s track should have its own stages, its own exit criteria, and its own owner. Not a checkbox inside a stage the AE controls.</p><aside class="pull"><p>The SE owns the technical win. Deals don&rsquo;t close without one.</p></aside>
+<h3>The six stages</h3>
+<p>These aren&rsquo;t new and I didn&rsquo;t invent them. I picked up a version of this track almost twenty years ago, at Symantec where the stages existed but were largely invisible, buried inside process documentation that nobody read and nothing enforced. What I&rsquo;ve done since is carry it into every team I&rsquo;ve built or rebuilt, make it visible, and give it exit criteria an SE can actually be held to.</p>
+<p>That&rsquo;s the honest lineage. The stages are not the clever part. Making them operational, scored, and connected to the forecast is.</p>
+<p><strong>0. SE Not Engaged.</strong> A status, not a phase. It exists so you can tell the difference between a deal with no technical work required and a deal where technical work should have started and didn&rsquo;t. That distinction matters more than it sounds like it does.</p>
+<p><strong>1. Technical Qualification.</strong> Determine whether you actually have a solution for this customer&rsquo;s problem. Begins when the SE engages an opportunity sales has initially qualified. Ends when the SE verifies real technical and business fit. The honest version of this stage produces a meaningful number of exits, and an SE org that never disqualifies at stage one isn&rsquo;t qualifying.</p>
+<p><strong>2. Solution Positioning.</strong> Communicate value and position your solution above the alternatives. Opportunity planning, solution design, RFP and security questionnaire response, demonstrations, competitive research, executive briefings, specialist and partner SE engagement. Formally ends when the customer commits time and resources to validating the solution. Positioning activity continues afterward. The stage closes, the work doesn&rsquo;t.</p>
+<p><strong>3. Proof of Value.</strong> The whole of section four.</p>
+<p><strong>4. Solution Acceptance.</strong> The customer has validated the technology as technically viable, and has not yet named a technical winner or loser. Section six.</p>
+<p><strong>5. Technical Closure.</strong> The technical decision maker has chosen you above all others, has made a formal purchase request to the business and financial decision makers, and confirms no further technical activity is required.</p>
+
+<div class="standout" id="s3-collapse">
+  <p class="label">Taxonomy</p>
+<h3 style="margin-top:0">Four stages when six is too many</h3>
+  <p>Enterprise orgs can run the full six. Smaller teams often can&rsquo;t, and shouldn&rsquo;t invent empty fields. Collapse the track to four without losing the signal:</p>
+  <ul>
+    <li><strong>Not Engaged</strong>, maps from stage 0.</li>
+    <li><strong>Qualifying</strong>, folds Technical Qualification and early Solution Positioning.</li>
+    <li><strong>Proving</strong>, folds late Positioning and Proof of Value (the proving stage; vehicles live here).</li>
+    <li><strong>Accepted</strong>, folds Solution Acceptance and Technical Closure into one decision-grade state, with a note on whether the technical decision maker has formally recommended.</li>
+  </ul>
+  <p>Same gap logic against the sales ladder. Same ownership by the SE. Fewer picklist values for a ten-person SE team that will not maintain six. Expand back to six when deal complexity and headcount warrant it.</p>
+
+</div>
+
+<h3>Overlap is correct behavior</h3>
+<p>Map that track against any sales stage model and the cells don&rsquo;t line up one to one. Proof of Value and Solution Acceptance both sit inside the sales stage of Solution Validation. Technical Closure straddles Proposal.</p>
+<p>That looks like a mapping failure. It isn&rsquo;t. It&rsquo;s the whole point. Two tracks measuring two different things will overlap, and forcing them into a one-to-one correspondence is how you end up back where you started, with one number carrying two signals.</p>
+<p>The tracks are related and they are not the same. Keep them that way.</p>
+<p class="stage-note">Note on the overlay: <em>Sales stages above. Technical evaluation stages below. The seams do not meet.</em></p>
+<figure class="fig"><div class="fig-art"><svg viewBox="0 0 680 292" role="img" xmlns="http://www.w3.org/2000/svg"><title>Sales stages overlaid with technical evaluation stages across one deal timeline</title><desc>Two parallel tracks running left to right across the same deal timeline, from first contact to signature. Dashed ticks drop from each technical stage boundary to show where it falls against the sales track. Only one boundary is shared.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<text class="th" x="40" y="46">Sales stages</text>
+<g class="c-gray"><rect x="40" y="58" width="100" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="90" y="85" text-anchor="middle" dominant-baseline="central">Qualification</text></g>
+<g class="c-gray"><rect x="145" y="58" width="80" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="185" y="85" text-anchor="middle" dominant-baseline="central">Discovery</text></g>
+<g class="c-gray"><rect x="230" y="58" width="115" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="287" y="76" text-anchor="middle" dominant-baseline="central">Solution</text><text class="ts" x="287" y="94" text-anchor="middle" dominant-baseline="central">development</text></g>
+<g class="c-gray"><rect x="350" y="58" width="150" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="425" y="76" text-anchor="middle" dominant-baseline="central">Solution</text><text class="ts" x="425" y="94" text-anchor="middle" dominant-baseline="central">validation</text></g>
+<g class="c-gray"><rect x="505" y="58" width="75" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="542" y="85" text-anchor="middle" dominant-baseline="central">Proposal</text></g>
+<g class="c-gray"><rect x="585" y="58" width="55" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="612" y="85" text-anchor="middle" dominant-baseline="central">Closed</text></g>
+<circle cx="100" cy="118" r="2" fill="#8B9095"/><line x1="100" y1="118" x2="100" y2="172" class="leader"/>
+<circle cx="245" cy="118" r="2" fill="#8B9095"/><line x1="245" y1="118" x2="245" y2="172" class="leader"/>
+<circle cx="350" cy="118" r="2" fill="#8B9095"/><line x1="350" y1="118" x2="350" y2="172" class="leader"/>
+<circle cx="440" cy="118" r="2" fill="#8B9095"/><line x1="440" y1="118" x2="440" y2="172" class="leader"/>
+<circle cx="550" cy="118" r="2" fill="#8B9095"/><line x1="550" y1="118" x2="550" y2="172" class="leader"/>
+<text class="th" x="40" y="166">Technical evaluation stages</text>
+<g class="c-purple"><rect x="40" y="178" width="58" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="69" y="196" text-anchor="middle" dominant-baseline="central">Not</text><text class="ts" x="69" y="214" text-anchor="middle" dominant-baseline="central">engaged</text></g>
+<g class="c-purple"><rect x="100" y="178" width="140" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="170" y="196" text-anchor="middle" dominant-baseline="central">Technical</text><text class="ts" x="170" y="214" text-anchor="middle" dominant-baseline="central">qualification</text></g>
+<g class="c-purple"><rect x="245" y="178" width="100" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="295" y="196" text-anchor="middle" dominant-baseline="central">Solution</text><text class="ts" x="295" y="214" text-anchor="middle" dominant-baseline="central">positioning</text></g>
+<g class="c-purple"><rect x="350" y="178" width="85" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="392" y="196" text-anchor="middle" dominant-baseline="central">Proof of</text><text class="ts" x="392" y="214" text-anchor="middle" dominant-baseline="central">value</text></g>
+<g class="c-purple"><rect x="440" y="178" width="105" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="492" y="196" text-anchor="middle" dominant-baseline="central">Solution</text><text class="ts" x="492" y="214" text-anchor="middle" dominant-baseline="central">acceptance</text></g>
+<g class="c-purple"><rect x="550" y="178" width="90" height="54" rx="4" stroke-width="0.5"/><text class="ts" x="595" y="196" text-anchor="middle" dominant-baseline="central">Technical</text><text class="ts" x="595" y="214" text-anchor="middle" dominant-baseline="central">closure</text></g>
+<line x1="40" y1="254" x2="644" y2="254" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="40" y="276">First contact</text>
+<text class="ts" x="640" y="276" text-anchor="end">Signature</text>
+</svg>
+</div><figcaption><span class="fig-n">Fig.&nbsp;1</span><span class="fig-body"><b>Two-lane overlay: sales stages above, technical evaluation stages below, across the same deal timeline.</b>Five of the six technical boundaries land mid-stage. The SE engages partway through Qualification, before Discovery begins. Proof of Value and Solution Acceptance both sit inside Solution Validation. Technical Closure crosses from Proposal into Closed. Only one boundary in the diagram is shared, and forcing the rest to match it is how you lose the signal.</span></figcaption></figure>
+<h3>Why stage four and stage five are not the same stage</h3>
+<p>The most common objection to this model is that Solution Acceptance and Technical Closure look like one stage with a timestamp between them. Here&rsquo;s the difference, and it&rsquo;s the difference between a deal you can call and a deal you can&rsquo;t.</p>
+<p>At Solution Acceptance, the technology has been validated. The customer agrees it works. They have not decided whether it&rsquo;s the one they want, and they may be actively comparing it against a competitor who also just finished proving their own solution works.</p>
+<p>At Technical Closure, they&rsquo;ve decided, and they&rsquo;ve told their business decision makers.</p>
+<p>Those are different states. Only one of them is decision-grade. A forecast that treats &ldquo;technically validated&rdquo; and &ldquo;technically selected&rdquo; as the same signal will be confidently wrong about every competitive deal it touches.</p>
+
+</div></section><section class="sec" id="s4"><div class="sechead"><span class="num">4</span><h2>POV is a stage. POC is a tool inside it.</h2></div><div class="col">
+
+<div class="standout">
+  <p class="label">Taxonomy</p>
+<p><strong>Proof of Value is the proving stage</strong>, the part of the technical track whose objective is proving value against success criteria the customer agreed to in advance. It is not defined by the vehicle you use to get there. A POC is one vehicle. So is a pilot, a structured workshop against their real data, a reference architecture review, a competitive teardown, a site visit, or a sequenced demo series. The community often treats POC and POV as sibling validation types (technical feasibility versus business value). Fair usage, and not how this model works. Here POC nests <em>under</em> POV-as-stage: POV is the stage; POC is one tool inside it. If that taxonomy fight derails your room, call the stage &ldquo;Proving&rdquo; and keep the vehicles on the menu. The substance doesn&rsquo;t change.</p>
+
+</div>
+
+<p>Most of the industry uses these words interchangeably. I don&rsquo;t, and the distinction does real work.</p>
+<p><strong>Proof of Value is the stage.</strong> It&rsquo;s defined by its objective, which is proving the value your solution provides against success criteria the customer agreed to in advance. It is not defined by the vehicle you use to get there.</p>
+<p><strong>A POC is one vehicle.</strong> So is a pilot. So is a reference architecture review, a competitive teardown, a site visit, a structured workshop against their real data.</p>
+<p>The order matters. You establish what has to be proven, to whom, and how much proof the deal warrants. <em>Then</em> you pick the vehicle. Run it the other way, pick the POC first and figure out the criteria later, and you get section one.</p>
+
+<div class="standout" id="wilson-trust-tax">
+  <p class="label">Key point</p>
+<p>Before anyone reads &ldquo;POV is a stage&rdquo; as &ldquo;always run a POC,&rdquo; take the point from <a href="https://www.linkedin.com/in/jchadwilson">Chad Wilson</a>, COO and Head of GTM Transformation at 2Win!: a POC request is often a <strong>trust tax</strong>, scar tissue from a bad prior vendor, a relevance gap the demo never closed, or discovery that was too shallow to earn belief. Teams that park sixty percent of SE capacity in POCs aren&rsquo;t running a sales motion; they&rsquo;re unpaid services. Sometimes the right move is a <strong>Yes, but</strong>: re-engage on discovery or the demo so the customer isn&rsquo;t hearing a hard no, and so the proof isn&rsquo;t necessary yet. When proof <em>is</em> required (bake-off, security mandate, economic buyer who won&rsquo;t move without evidence), govern it. Stages, entry gate, written criteria, hard end date. Re-engage when proof isn&rsquo;t earned yet. Govern what you must.</p>
+
+</div>
+
+<figure class="fig" id="fig-pov-hybrid">
+<div class="fig-art">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 848" role="img" aria-label="Proof of Value is a stage: re-engage or govern, then choose a vehicle under clear criteria">
+  <rect x="0" y="0" fill="#FFFFFF"></rect>
+
+  <text x="72" y="86" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="46" letter-spacing="-1.6" fill="#0C0F14">Proof of Value is a stage.</text>
+  <text x="72" y="120" font-family="Newsreader, serif" font-size="19" fill="#5A6371">Not a thing you run. Choose one vehicle once you know what must be proven, and what the opportunity justifies.</text>
+
+    <rect x="72" y="136" width="1056" height="40" fill="#FCE9C9"></rect>
+  <text x="96" y="161" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="14" letter-spacing="1.6" fill="#9A5C08">RE-ENGAGE</text>
+  <text x="220" y="161" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="15" fill="#633806">Yes, but: if discovery or the demo hasn&apos;t earned proof yet, don&apos;t hard-no the customer. Fix upstream first.</text>
+
+<rect x="72" y="200" width="1056" height="46" fill="#E8EBF7"></rect>
+  <text x="96" y="229" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="15" letter-spacing="1.8" fill="#5B6FBF">GATE</text>
+  <text x="164" y="229" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="15" fill="#0C0F14">Clear success criteria · defined use cases &amp; test cases · reasonable timeline</text>
+  <text x="1104" y="229" text-anchor="end" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="12" letter-spacing="1.2" fill="#5B6FBF">ALL VEHICLES</text>
+
+  <rect x="72" y="246" width="3" height="16" fill="#5B6FBF"></rect>
+  <rect x="1125" y="246" width="3" height="16" fill="#5B6FBF"></rect>
+  <rect x="72" y="698" width="3" height="22" fill="#5B6FBF"></rect>
+  <rect x="1125" y="698" width="3" height="22" fill="#5B6FBF"></rect>
+
+  <rect x="72" y="262" width="1056" height="436" fill="#EEF0F4"></rect>
+  <text x="96" y="298" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="14" letter-spacing="2" fill="#0C0F14">PROOF OF VALUE · STAGE · VEHICLES INSIDE IT</text>
+  <text x="620" y="298" text-anchor="end" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="12" letter-spacing="1.4" fill="#5A6371">LOW</text>
+  <rect x="632" y="288" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="651" y="288" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="670" y="288" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="689" y="288" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="708" y="288" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="727" y="288" width="15" height="7" fill="#D5DAE1"></rect>
+  <text x="752" y="298" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="12" letter-spacing="1.4" fill="#5A6371">HIGH</text>
+  <text x="1104" y="298" text-anchor="end" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="13" letter-spacing="1.6" fill="#5A6371">ENGINEERING INVESTMENT</text>
+
+  <rect x="96" y="324" width="340" height="352" fill="#FFFFFF" stroke="#D5DAE1" stroke-width="1"></rect>
+  <text x="118" y="361" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="26" letter-spacing="-0.7" fill="#0C0F14">POC</text>
+  <text x="118" y="385" font-family="Newsreader, serif" font-size="15" fill="#5A6371">Three tiers, set by deal threshold</text>
+  <rect x="96" y="398" width="340" height="1" fill="#D5DAE1"></rect>
+
+  <text x="118" y="428" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="19" fill="#0C0F14">SANDBOX</text>
+  <text x="118" y="450" font-family="Newsreader, serif" font-size="15" fill="#5A6371">15 days · no admin access</text>
+  <text x="118" y="469" font-family="Newsreader, serif" font-size="15" fill="#5A6371">1 configuration · smallest deals</text>
+  <rect x="118" y="479" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="137" y="479" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="156" y="479" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="175" y="479" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="194" y="479" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="213" y="479" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="96" y="490" width="340" height="1" fill="#D5DAE1"></rect>
+
+  <text x="118" y="520" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="19" fill="#0C0F14">BASIC</text>
+  <text x="118" y="542" font-family="Newsreader, serif" font-size="15" fill="#5A6371">30 days · single admin</text>
+  <text x="118" y="561" font-family="Newsreader, serif" font-size="15" fill="#5A6371">2 configurations · mid threshold</text>
+  <rect x="118" y="571" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="137" y="571" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="156" y="571" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="175" y="571" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="194" y="571" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="213" y="571" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="96" y="582" width="340" height="1" fill="#D5DAE1"></rect>
+
+  <text x="118" y="612" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="19" fill="#0C0F14">ADVANCED</text>
+  <text x="118" y="634" font-family="Newsreader, serif" font-size="15" fill="#5A6371">45 days · up to 3 admins</text>
+  <text x="118" y="653" font-family="Newsreader, serif" font-size="15" fill="#5A6371">Full integration surface · high threshold</text>
+  <rect x="118" y="663" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="137" y="663" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="156" y="663" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="175" y="663" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="194" y="663" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="213" y="663" width="15" height="7" fill="#D5DAE1"></rect>
+
+  <rect x="455" y="324" width="300" height="352" fill="#FFFFFF" stroke="#D5DAE1" stroke-width="1"></rect>
+  <text x="477" y="359" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="22" letter-spacing="-0.6" fill="#0C0F14">Structured</text>
+  <text x="477" y="384" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="22" letter-spacing="-0.6" fill="#0C0F14">demonstration series</text>
+  <rect x="455" y="398" width="300" height="1" fill="#D5DAE1"></rect>
+  <text x="477" y="428" font-family="Newsreader, serif" font-size="15" fill="#5A6371">Sequenced advanced demos against</text>
+  <text x="477" y="447" font-family="Newsreader, serif" font-size="15" fill="#5A6371">written criteria. Workshop and</text>
+  <text x="477" y="466" font-family="Newsreader, serif" font-size="15" fill="#5A6371">architecture review sit here too.</text>
+
+  <rect x="456" y="500" width="298" height="175" fill="#E8EBF7"></rect>
+  <text x="477" y="536" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="15" letter-spacing="1.2" fill="#5B6FBF">COSTS WHAT A POC COSTS</text>
+  <text x="477" y="558" font-family="Newsreader, serif" font-size="15" fill="#0C0F14">in engineering capacity</text>
+  <rect x="477" y="584" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="496" y="584" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="515" y="584" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="534" y="584" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="553" y="584" width="15" height="7" fill="#FFFFFF"></rect>
+  <rect x="572" y="584" width="15" height="7" fill="#FFFFFF"></rect>
+  <text x="477" y="624" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="14" letter-spacing="1.2" fill="#0C0F14">EQUAL TO ADVANCED POC</text>
+  <text x="477" y="650" font-family="Newsreader, serif" font-size="15" fill="#0C0F14">A full validation vehicle.</text>
+
+  <rect x="774" y="324" width="330" height="352" fill="#FFFFFF" stroke="#D5DAE1" stroke-width="1"></rect>
+  <text x="796" y="361" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="26" letter-spacing="-0.7" fill="#0C0F14">Paid vehicles</text>
+  <text x="796" y="385" font-family="Newsreader, serif" font-size="15" fill="#5A6371">Contracted engagements</text>
+  <rect x="774" y="398" width="330" height="1" fill="#D5DAE1"></rect>
+
+  <text x="796" y="428" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="19" fill="#0C0F14">PILOT</text>
+  <text x="796" y="450" font-family="Newsreader, serif" font-size="15" fill="#5A6371">45 days</text>
+  <rect x="796" y="464" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="815" y="464" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="834" y="464" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="853" y="464" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="872" y="464" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="891" y="464" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="774" y="490" width="330" height="1" fill="#D5DAE1"></rect>
+
+  <text x="796" y="520" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="19" fill="#0C0F14">PILOT-AS-A-SERVICE</text>
+  <text x="796" y="542" font-family="Newsreader, serif" font-size="15" fill="#5A6371">90 days · fully managed</text>
+  <rect x="796" y="556" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="815" y="556" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="834" y="556" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="853" y="556" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="872" y="556" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="891" y="556" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="774" y="582" width="330" height="1" fill="#D5DAE1"></rect>
+
+  <text x="796" y="612" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="19" fill="#0C0F14">TRY-AND-BUY</text>
+  <text x="796" y="634" font-family="Newsreader, serif" font-size="15" fill="#5A6371">30–45 days · converts directly to contract</text>
+  <rect x="796" y="648" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="815" y="648" width="15" height="7" fill="#5B6FBF"></rect>
+  <rect x="834" y="648" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="853" y="648" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="872" y="648" width="15" height="7" fill="#D5DAE1"></rect>
+  <rect x="891" y="648" width="15" height="7" fill="#D5DAE1"></rect>
+
+  <rect x="72" y="720" width="1056" height="46" fill="#E8EBF7"></rect>
+  <text x="96" y="749" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="15" letter-spacing="1.8" fill="#5B6FBF">READOUT</text>
+  <text x="196" y="749" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="18" fill="#0C0F14">Performance mapped back to those criteria</text>
+  <text x="1104" y="749" text-anchor="end" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="13" letter-spacing="1.6" fill="#5B6FBF">ALL VEHICLES</text>
+
+  <text x="72" y="804" font-family="Newsreader, serif" font-style="italic" font-size="17" fill="#5A6371">Every vehicle is legitimate. The demonstration series consumes POC-level capacity. It only looks lighter.</text>
+</svg>
+</div>
+<figcaption><span class="fig-n">Fig.&nbsp;2a</span><span class="fig-body"><b>Proof of Value is a stage: re-engage when proof isn&rsquo;t earned yet; govern with clear criteria; then pick a vehicle by engineering investment.</b>Documented success criteria, use cases, test cases, and a reasonable timeline apply to every vehicle. A structured demonstration series costs Advanced-POC capacity. It only looks lighter. Paid vehicles sit on the same menu.</span></figcaption>
+</figure>
+
+
+<h3>A demo series can be proof. It just isn&rsquo;t cheap.</h3>
+<p>There&rsquo;s a version of this argument that says demos are positioning and only positioning, and proof always means a POC. I don&rsquo;t believe that, because I&rsquo;ve closed technical evaluations on a structured series of advanced demonstrations more than once.</p>
+<p>A single overview demo can&rsquo;t prove anything. It shows what the product does, on your data, in your environment, under your control. But a sequenced set of advanced demos, built against the customer&rsquo;s stated criteria, using their configurations and their use cases, with the right technical audience in the room each time, absolutely can establish technical validity. Sometimes it&rsquo;s the better vehicle, particularly when the customer can&rsquo;t stand up an environment, can&rsquo;t get security approval in the window, or simply won&rsquo;t assign people to run one.</p>
+<p>Here&rsquo;s the part that gets missed, and it&rsquo;s the whole reason this belongs in a section about scoping.</p>
+<p><strong>A proof-grade demo series costs what a POC costs.</strong> Count it honestly. Four or five sessions, each with real preparation, a built environment behind them, configurations matched to their requirements, dry runs, and follow-up. That&rsquo;s the same SE capacity as a thirty-day POC, sometimes more, and it&rsquo;s spread across more calendar weeks.</p>
+<p>So the failure isn&rsquo;t using demos as proof. The failure is choosing the demo series <em>because it feels lighter</em>, and then running it with none of the discipline you&rsquo;d apply to a POC. No documented success criteria. No end date set at the start. No readout mapping performance back to what was promised. Just a rolling sequence of sessions that stops when everyone gets tired.</p>
+<div class="standout">
+  <p class="label">Evidence</p>
+<p>That&rsquo;s where Cohan&rsquo;s demo-waste number comes from, a different denominator from the no-decision rate above. Citing Consensus&rsquo;s 2020 Sales Engineering Compensation and Workload Report, he notes that across 847 organizations asked what percent of demos were unqualified or under-qualified, the <strong>median was thirty percent</strong>, demos he frames as wasted capacity. Not thirty percent at a few bad teams. A median, across a sample that size, which means the typical org burns roughly a third of its demo capacity producing nothing. Keep that figure separate from the ~45% no-decision average: one is about forecasted opportunities that evaporate; the other is about demo capacity that produces no progress.</p>
+
+</div>
+<p>The fix isn&rsquo;t fewer demos. It&rsquo;s treating a proof-grade demo series as what it is: a vehicle inside Proof of Value, tiered against deal size, capped on duration, scoped to written criteria, and closed with a readout. If it earns the same investment as an advanced POC, it earns the same threshold and the same governance.</p>
+<h3>Tiering the vehicle to the deal</h3>
+<p>If a POC is the right vehicle, it&rsquo;s a contract, not an improvisation. Three tiers, each pinned to deal size and complexity, so the cost of proof scales with the value of the prize. The deal thresholds below, minimum, mid, high, are <strong>illustrative</strong>, not a published rate card. They reflect broad anecdotal patterns across the pre-sales landscape: enough structure to stop an Advanced vehicle landing on a small deal by default, and meant to be recalibrated to your ACV bands and segment mix.</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Duration</th>
+<th>Deal threshold</th>
+<th>Users</th>
+<th>Admin access</th>
+<th>Integration depth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sandbox</strong></td>
+<td>15 days</td>
+<td>minimum and above</td>
+<td>up to 10</td>
+<td>none</td>
+<td>closed, pre-defined environment; single configuration</td>
+</tr>
+<tr>
+<td><strong>Basic</strong></td>
+<td>30 days max</td>
+<td>mid</td>
+<td>up to 15</td>
+<td>single admin</td>
+<td>two configurations, standard catalog only</td>
+</tr>
+<tr>
+<td><strong>Advanced</strong></td>
+<td>45 days max</td>
+<td>high</td>
+<td>up to 20</td>
+<td>up to 3 admins</td>
+<td>full integration surface, including compatibility testing for unsupported components</td>
+</tr>
+</tbody>
+</table>
+<p>Every tier requires articulated, documented success criteria before it starts. No exceptions, including for the fifteen-day sandbox.</p>
+<p>The tiering does something a policy memo can&rsquo;t. It makes the expensive vehicle unavailable to small deals by structure rather than by argument. An SE can&rsquo;t quietly commit forty-five days of engineering effort to a deal that doesn&rsquo;t warrant it, because the tier isn&rsquo;t on the menu. This kills an entire category of resourcing conversation that pre-sales leaders otherwise have every single week.</p>
+<p>Paid vehicles sit alongside these as a separate tier. A pilot, paid and often discounted, capped at forty-five days. A fully managed pilot-as-a-service, up to ninety days, for customers who want to evaluate without spending their own people on it. A try-and-buy, thirty to forty-five days, structured to convert directly into contract. The moment a customer pays anything for an evaluation, your forecast signal improves, because they&rsquo;ve spent something they have to account for internally.</p>
+<p>A proof-grade demo series slots in at the advanced tier. Same deal threshold, same requirement for written criteria, same hard end date. Putting it on the same menu as the POC tiers is what stops it from being chosen as the easy option, because on the menu it visibly isn&rsquo;t one.</p>
+<h3>The artifact chain</h3>
+<p>The stage produces documents, and the documents are the mechanism, not the bureaucracy.</p>
+<p>A <strong>plan</strong> written before anything starts: why us, why now, duration, touchpoint schedule, use cases, success criteria, who is involved on both sides, what technical discovery produced, and the wrapup schedule. That last one matters more than people expect. Scheduling the end at the beginning is what prevents day sixty.</p>
+<p><strong>Execution</strong> against the plan, with the touchpoint schedule held.</p>
+<p>A <strong>user questionnaire</strong> at the close, capturing the people who actually touched it rather than the one champion who talks to you.</p>
+<p>A <strong>readout</strong> mapping performance directly back to the criteria set at the start. Not a summary of what happened. A scorecard against what was promised.</p>
+<p>Continuous discovery runs underneath all of it. Requirements surface during evaluation, always, and the difference between a disciplined stage and section one is whether new requirements get captured as scope decisions or absorbed as extensions.</p>
+
+</div></section><section class="sec" id="s5"><div class="sechead"><span class="num">5</span><h2>The entry gate</h2></div><div class="col">
+<p>Everything above is process. This is the part that changes outcomes.</p>
+<p>Before a POC starts, score the customer on two axes: sentiment toward your solution, and how far they&rsquo;ve gone in articulating its value. The score decides whether a proof should happen at all, and which vehicle it earns.</p>
+<p>Articulated rather than perceived, deliberately. Perception is invisible and you end up guessing at it. Articulation is observable: either they said it back to you on a call, in their own words, or they didn&rsquo;t.</p>
+
+<div class="standout">
+  <p class="label">Entry gate</p>
+<p>The bands below, roughly ten, twenty-five, and fifty percent, are <strong>illustrative thresholds</strong>. Calibrate them on your own closed-won and closed-lost book: look at proofs you entered, what the customer could articulate beforehand, and whether the deal survived friction. Your numbers will differ by ACV, segment, and how technical the sale is. Start here, then retune after a quarter of data.</p>
+  <p>And for the AE reading this as SE obstruction: the gate protects <strong>forecast integrity and SE capacity</strong>. A proof entered too early converts warm indifference into documented rejection, inflates Commit with deals that cannot survive a proxy failure, and burns the hours you both need on pursuits that can. Declining a proof is not declining the opportunity. The commercial track can keep working while pre-sales refuses to fund a vehicle that will produce findings instead of a verdict.</p>
+
+</div>
+
+<p><strong>Around ten percent.</strong> They don&rsquo;t understand the value. First meeting, no identified use cases, one product in play, you&rsquo;re a nice-to-have. Perception is neutral to negative.</p>
+<p><strong>Around twenty-five percent.</strong> They recognize the value. Second meeting or several touchpoints, one or more use cases identified, still narrow. Your solution could potentially solve a problem. Perception is neutral to positive.</p>
+<p><strong>Around fifty percent.</strong> They understand the value and can articulate it back to you without help. Multiple meetings, an extended use-case session completed, multiple use cases identified, and at least one specific case that only you can support. Perception is positive.</p>
+<p>That last condition is the sharp one. &ldquo;Only we can support this&rdquo; is a differentiation test, and it&rsquo;s the hardest of the three to fake.</p>
+<figure class="fig" id="fig-entry-gate">
+<div class="fig-art">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Figure 2: the authorization gate, customer sentiment against articulated value">
+  <defs>
+    <filter id="cellSoft" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0C0F14" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="1200" height="900" fill="#FFFFFF"/>
+
+  <text x="700" y="88" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="14" letter-spacing="2.5" fill="#8A93A1">ARTICULATED VALUE</text>
+
+  <text x="390" y="148" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="22" letter-spacing="-0.4" fill="#0C0F14">Unstated</text>
+  <text x="700" y="148" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="22" letter-spacing="-0.4" fill="#0C0F14">Recognized</text>
+  <text x="1010" y="148" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="22" letter-spacing="-0.4" fill="#0C0F14">Articulated</text>
+
+  <text x="56" y="520" text-anchor="middle" transform="rotate(-90 56 520)" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="14" letter-spacing="2.5" fill="#8A93A1">CUSTOMER SENTIMENT</text>
+  <text x="222" y="292" text-anchor="end" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="20" fill="#0C0F14">Positive</text>
+  <text x="222" y="492" text-anchor="end" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="20" fill="#0C0F14">Neutral</text>
+  <text x="222" y="692" text-anchor="end" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="20" fill="#0C0F14">Negative</text>
+
+  <!-- POSITIVE -->
+  <g filter="url(#cellSoft)">
+    <rect x="250" y="180" width="280" height="180" rx="12" fill="#FBF0DD"/>
+    <rect x="250" y="180" width="280" height="8" rx="12" fill="#C48A1A"/>
+    <rect x="250" y="184" width="280" height="8" fill="#C48A1A"/>
+    <text x="390" y="292" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="26" fill="#0C0F14">Nice to have</text>
+  </g>
+  <g filter="url(#cellSoft)">
+    <rect x="560" y="180" width="280" height="180" rx="12" fill="#E5F3E4"/>
+    <rect x="560" y="180" width="280" height="8" rx="12" fill="#3D8B55"/>
+    <rect x="560" y="184" width="280" height="8" fill="#3D8B55"/>
+    <text x="700" y="292" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="26" fill="#0C0F14">Authorized</text>
+  </g>
+  <g filter="url(#cellSoft)">
+    <rect x="870" y="180" width="280" height="180" rx="12" fill="#E5F3E4"/>
+    <rect x="870" y="180" width="280" height="8" rx="12" fill="#3D8B55"/>
+    <rect x="870" y="184" width="280" height="8" fill="#3D8B55"/>
+    <text x="1010" y="248" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="42" letter-spacing="-1.2" fill="#2F6B42">50%</text>
+    <text x="1010" y="292" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="24" fill="#0C0F14">Full vehicle</text>
+  </g>
+
+  <!-- NEUTRAL -->
+  <g filter="url(#cellSoft)">
+    <rect x="250" y="380" width="280" height="180" rx="12" fill="#F8E4E1"/>
+    <rect x="250" y="380" width="280" height="8" rx="12" fill="#C45B52"/>
+    <rect x="250" y="384" width="280" height="8" fill="#C45B52"/>
+    <text x="390" y="492" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="26" fill="#0C0F14">Too early</text>
+  </g>
+  <g filter="url(#cellSoft)">
+    <rect x="560" y="380" width="280" height="180" rx="12" fill="#FBF0DD"/>
+    <rect x="560" y="380" width="280" height="8" rx="12" fill="#C48A1A"/>
+    <rect x="560" y="384" width="280" height="8" fill="#C48A1A"/>
+    <text x="700" y="448" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="42" letter-spacing="-1.2" fill="#C48A1A">25%</text>
+    <text x="700" y="492" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="24" fill="#0C0F14">Sandbox only</text>
+  </g>
+  <g filter="url(#cellSoft)">
+    <rect x="870" y="380" width="280" height="180" rx="12" fill="#E5F3E4"/>
+    <rect x="870" y="380" width="280" height="8" rx="12" fill="#3D8B55"/>
+    <rect x="870" y="384" width="280" height="8" fill="#3D8B55"/>
+    <text x="1010" y="492" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="26" fill="#0C0F14">Authorized</text>
+  </g>
+
+  <!-- NEGATIVE -->
+  <g filter="url(#cellSoft)">
+    <rect x="250" y="580" width="280" height="180" rx="12" fill="#F8E4E1"/>
+    <rect x="250" y="580" width="280" height="8" rx="12" fill="#C45B52"/>
+    <rect x="250" y="584" width="280" height="8" fill="#C45B52"/>
+    <text x="390" y="648" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="42" letter-spacing="-1.2" fill="#A84840">10%</text>
+    <text x="390" y="692" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="24" fill="#0C0F14">Not authorized</text>
+  </g>
+  <g filter="url(#cellSoft)">
+    <rect x="560" y="580" width="280" height="180" rx="12" fill="#F8E4E1"/>
+    <rect x="560" y="580" width="280" height="8" rx="12" fill="#C45B52"/>
+    <rect x="560" y="584" width="280" height="8" fill="#C45B52"/>
+    <text x="700" y="692" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="26" fill="#0C0F14">Too early</text>
+  </g>
+  <g filter="url(#cellSoft)">
+    <rect x="870" y="580" width="280" height="180" rx="12" fill="#C45B52"/>
+    <text x="1010" y="692" text-anchor="middle" font-family="'Bricolage Grotesque', sans-serif" font-weight="800" font-size="26" fill="#FFFFFF">Walk away</text>
+  </g>
+
+  <rect x="250" y="790" width="14" height="14" rx="3" fill="#E5F3E4" stroke="#3D8B55" stroke-width="1.5"/>
+  <text x="272" y="802" text-anchor="start" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="13" fill="#5A6371">Authorized</text>
+  <rect x="420" y="790" width="14" height="14" rx="3" fill="#FBF0DD" stroke="#C48A1A" stroke-width="1.5"/>
+  <text x="442" y="802" text-anchor="start" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="13" fill="#5A6371">Limited / caution</text>
+  <rect x="620" y="790" width="14" height="14" rx="3" fill="#F8E4E1" stroke="#C45B52" stroke-width="1.5"/>
+  <text x="642" y="802" text-anchor="start" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="13" fill="#5A6371">Not ready</text>
+  <rect x="790" y="790" width="14" height="14" rx="3" fill="#C45B52"/>
+  <text x="812" y="802" text-anchor="start" font-family="'Bricolage Grotesque', sans-serif" font-weight="700" font-size="13" fill="#5A6371">Walk away</text>
+</svg>
+</div>
+<figcaption><span class="fig-n">Fig.&nbsp;2</span><span class="fig-body"><b>Authorization gate: customer sentiment against articulated value.</b>The diagonal carries the scores. The corners carry the judgment. A customer who articulates your value and still feels negative isn&rsquo;t early, they&rsquo;re scarred, and no proof repairs that. Green cells are authorized; amber is limited or nice-to-have; red is not authorized or walk away.</span></figcaption>
+</figure>
+<div class="standout">
+  <p class="label">Gate clarification</p>
+  <p>One clarification before anyone objects to the bottom-right square. This chart makes a recommendation about <em>proof</em>, not a verdict on the pipeline. It says don&rsquo;t spend evaluation capacity here. The opportunity can stay open and get worked commercially while pre-sales declines to staff a resource for it. SE leaders don&rsquo;t close opportunities, but they expect the ones they&rsquo;re asked to staff to be winnable.</p>
+</div>
+<h3>Why the gate works</h3>
+<p>When something breaks during a proof, and something always breaks, the customer assigns blame. Where that blame lands is determined almost entirely by what they believed before the proof started.</p>
+<p>Enter at ten percent and a failure confirms what they already suspected. It&rsquo;s your product&rsquo;s fault. It gets written up. The evaluation is effectively over and nobody says so for another month.</p>
+<p>Enter at fifty percent, where they&rsquo;ve articulated your value in their own words to their own colleagues, and the identical failure gets attributed somewhere else entirely. Their auth method. Their conditional access policy, their certificate chain, their MDM profile, their split tunnel, their DNS, the golden image nobody&rsquo;s rebuilt since 2023.</p>
+<p>Or their proxy. Same proxy as section one. Same four days of work to find it. Completely different meaning, because this time your champion is in the call working it with you, and may even apologize for it.</p>
+<p>And it will be one of those things, because it&rsquo;s always one of those things. The failures in a technical evaluation are not exotic. They come from the same short list every time, and an experienced SE can usually name the culprit before the ticket is open. That&rsquo;s what makes the entry score so valuable: you already know friction is coming, you know roughly what kind, and the only variable you don&rsquo;t control is who gets blamed for it.</p>
+<p>That&rsquo;s not luck and it isn&rsquo;t rapport. It&rsquo;s attribution. People defend conclusions they&rsquo;ve already reached out loud, especially in front of colleagues. By fifty percent your champion has spent something, and a failed proof now costs them too.</p><aside class="pull"><p>You don&rsquo;t lose proofs. You decline the ones you were going to lose.</p></aside>
+<p>So the entry gate isn&rsquo;t scoring whether they&rsquo;ll buy. It&rsquo;s scoring <strong>how much friction the evaluation can survive.</strong> Since every proof of consequence hits friction, that&rsquo;s the more useful question.</p>
+<h3>Zero POC loss is a consequence, not an achievement</h3>
+<p>Run the gate honestly and your POC loss rate collapses. Not because your proofs got better. Because you stopped entering the ones you were going to lose.</p>
+<p>I want to be precise about that, because it&rsquo;s easy to misread as a win-rate claim. It isn&rsquo;t. It&rsquo;s a selection claim. The proofs you decline are the entire mechanism.</p>
+<div class="standout">
+  <p class="label">Caution</p>
+<p>The corollary needs saying both ways. <strong>&ldquo;Get them in a POC and let the product sell itself&rdquo; is an expensive habit</strong>, at ten percent nothing the product does gets read generously, and early proofs convert warm indifference into documented rejection you cannot re-run. But sustained proof conversion above roughly seventy-five percent can mean the opposite failure: you are over-refusing, and leaving deals on the table for competitors who will run the proof. Below ~40% conversion, fix the gate and the discovery. Above ~75% and holding, audit what you declined and whether those deals closed elsewhere. Selection is the mechanism; over-selection is still a miss.</p>
+
+</div>
+<p>Early proofs don&rsquo;t accelerate deals. They convert warm indifference into documented rejection, and you cannot re-run an evaluation that already produced findings.</p>
+<h3>The objection</h3>
+<p>Someone reads all of this as manipulation. Wait until they&rsquo;re invested so their failures don&rsquo;t count against you.</p>
+<p>The answer is in the gate&rsquo;s own conditions. Fifty percent requires them to have articulated a real use case that only you can serve. You&rsquo;re not manufacturing goodwill, you&rsquo;re refusing to spend proof on someone who hasn&rsquo;t done the work to need it. If they can&rsquo;t name a problem only you solve, a POC won&rsquo;t create one. It&rsquo;ll just take sixty days to confirm it.</p>
+<h3>What this does to the forecast</h3>
+<p>Here&rsquo;s why the gate belongs in a piece about forecasting rather than a piece about POC hygiene.</p>
+<p>A &ldquo;POC completed&rdquo; flag in the CRM is close to meaningless on its own, because the same outcome means opposite things depending on entry score.</p>
+<p>A proof entered at fifty percent and completed is a strong buy signal. A proof entered at ten percent and completed is a deal that should have been disqualified in stage one, and its completion tells you almost nothing about whether it will close.</p>
+<p>Same field. Same value. Opposite meanings.</p>
+<p>Stage-based forecasting cannot see the difference, and it has no mechanism to learn it. Record the entry score and every downstream technical signal becomes interpretable. One field, captured once, at a moment the SE already knows the answer.</p>
+<p>And it&rsquo;s checkable. Any CRO can run their own closed-lost data against it, which is what makes this an argument rather than a belief.</p>
+
+</div></section><section class="sec" id="s6"><div class="sechead"><span class="num">6</span><h2>Solution Acceptance is where the deal is won or quietly lost</h2></div><div class="col">
+<p>Stage four gets treated as a waiting room. The technical work is finished, the verdict is pending, the SE moves to the next deal.</p>
+<p>That&rsquo;s the most expensive mistake in the track, because stage four is competitive and nobody&rsquo;s playing.</p>
+<p>Two things have to happen here.</p>
+<p><strong>Pre-sales keeps working its technical peers.</strong> The evaluation is over; the decision isn&rsquo;t. Your competitor also just proved their solution works. Somebody in that organization is going to write a recommendation, and the SE&rsquo;s job in stage four is to be the person they call while writing it. This is relationship work with a specific objective, not maintenance.</p>
+<p><strong>Delivery comes to the table and builds a straw man.</strong> Post-sales and implementation get introduced, and together with the customer they sketch a rollout blueprint. Phases, dependencies, environments, who does what.</p>
+<p>The second one is the most underrated forecast signal in the entire model, and it&rsquo;s worth being explicit about why.</p>
+<h3>Behavioral commitment beats stated commitment</h3>
+<p>Everything else in a sales process is people telling you things. Discovery answers, demo reactions, champion enthusiasm. All of it is stated, all of it is cheap, and sales forecasts are built almost entirely out of it.</p>
+<p>A customer who agrees to sit down with your implementation team and design their own rollout is doing something different. They&rsquo;re spending their own time, in front of their own colleagues, on the assumption that they will be your customer. If they&rsquo;re planning to select the competitor, that meeting is embarrassing and pointless and they will find a reason not to have it.</p>
+<p>So the willingness to build the blueprint is a behavioral signal, and behavioral signals are the ones worth weighting. In a stage-based model that customer looks identical to every other customer in Solution Validation. In this model they&rsquo;re several steps ahead and you know it.</p><aside class="pull"><p>Everything else in a sales process is people telling you things. This is them spending something.</p></aside>
+
+<div class="standout">
+  <p class="label">Composite example</p>
+<p><em>Composite, scrubbed from the pattern:</em>  late-stage competitive bake-off, both vendors had cleared Proof of Value, commercial stages identical. The competitor kept pitching features. We brought delivery into a ninety-minute session and sketched a phased rollout with their ops lead, environments, cutover windows, who owned which integration. They put names next to workstreams. Two weeks later the competitor asked for a restart on success criteria; the customer declined. They had already spent political capital designing <em>our</em> deployment. The blueprint didn&rsquo;t close the deal by itself. It made restarting with someone else expensive. That is Solution Acceptance doing competitive work, not waiting-room work.</p>
+  <p>One sentence on the political cost: do not pull delivery into early tire-kickers or proofs that have not cleared the entry gate. Implementation leaders will correctly refuse, and they should. Stage four is the moment; earlier is theater.</p>
+
+</div>
+
+<p>There&rsquo;s an operational payoff too. The blueprint shortens production rollout, because the design conversation already happened before the paper was signed. Time to value drops, which shows up later in retention.</p>
+<h3>The argument this gives you with leadership</h3>
+<p>Pitch a CRO on a better probability score and you&rsquo;re asking for trust. Pitch them on knowing when to commit delivery resources and you&rsquo;re solving a problem that has a budget attached.</p>
+<p>James Kaikis, co-founder of PreSales Collective, has argued that solutions leadership should own the customer journey from pre-sale through post-sale, SE, services, success, and support under one roof. Industry benchmarks make the revenue case for that handoff: Benchmarkit&rsquo;s 2025 SaaS metrics put expansion at a median of fifty-eight percent of Total New ARR for companies in the fifty-to-one-hundred-million ARR band. Same conclusion, different road. If most of the growth comes after the first signature, then the handoff between pre-sales and delivery isn&rsquo;t an administrative step at the end of a deal. It&rsquo;s the beginning of the majority of the revenue.</p><aside class="pull"><p>Past fifty million in ARR, expansion is most of new ARR. The handoff is where most of the revenue begins.</p></aside>
+<p>Stage four is where that handoff starts, or where it gets skipped.</p>
+
+</div></section><section class="sec" id="s7"><div class="sechead"><span class="num">7</span><h2>Why this is finally practical</h2></div><div class="col">
+<p>None of this is new. I built a version of it into a CRM years ago, and it took custom objects, custom fields, and a reporting build that one person understood. It worked. It also had an obvious fragility: it depended on bespoke plumbing, and bespoke plumbing does not survive platform migrations or leadership changes.</p>
+<p>That fragility, not skepticism, is the real reason this kind of model hasn&rsquo;t spread. I&rsquo;ve never had a sales leader tell me the technical track was a bad idea. I&rsquo;ve had several tell me they couldn&rsquo;t put it in the roll-up. Those are completely different objections and only one of them is about the model.</p>
+<p>What&rsquo;s changed is that the second objection has mostly dissolved.</p>
+<p>The SE side now has purpose-built tooling. Platforms like Homerun PreSales let an SE curate the technical evaluation as structured work rather than notes in a deal record, then push that state into the CRM so the two tracks sit side by side on the same opportunity. The model works in Opine, Clari fields, or a spreadsheet. The discipline is the point; the tool is subordinate.</p>
+<p>From there it feeds forward. Conversation intelligence like Gong is a <strong>signal layer</strong>, language from real calls into structured fields, so &ldquo;the customer articulated the value back to us&rdquo; becomes observable rather than a claim the SE makes about themselves. Gong is not a technical stage system; it does not replace the SE-owned track. Revenue platforms like Clari are built to ingest additional signal and weight it against stage-based probability, which is precisely the shape of the problem. Product telemetry from an evaluation environment shows usage curves, which is the difference between &ldquo;the POC is going well&rdquo; and a graph of who logged in and when they stopped. Mutual action plans and their completion state are structured objects now.</p>
+
+<p>None of that required custom code. The plumbing is configuration, which means the second dimension can be recorded, scored, and rolled up without a build.</p>
+<h3>The rule: distance and direction</h3>
+<p>The mistake to avoid is replacing the sales probability with a technical one. That guarantees rejection and it deserves to be rejected, because the commercial ladder measures real things.</p>
+<p>Run the two tracks alongside each other instead, and read the gap between them.</p>
+<p><strong>Keep the sales stage ladder exactly as it is.</strong> Don&rsquo;t touch the field the board sees.</p>
+<p><strong>Add a technical stage field</strong> with the six values and their exit criteria, owned by the SE, advancing on its own gates.</p>
+<p><strong>Then measure the distance between the two, and note which way it runs.</strong> That&rsquo;s the whole model.</p>
+<p>A deal sitting at Proposal commercially while the technical track is still at Solution Positioning is not a current-quarter commit, whatever the ladder says. Paper is out, the technical evaluation has barely started, and the gap is two stages wide in the wrong direction.</p>
+<p>A deal at Solution Validation commercially with the technical track already at Solution Acceptance is a commit, even though the ladder prices it at fifty percent. The technical work is ahead of the commercial work, and the technical decision maker is closer to a recommendation than the AE&rsquo;s stage value can express.</p>
+<p>Same two-stage gap in both cases. Opposite meanings, because the direction is opposite.</p>
+<figure class="fig"><div class="fig-art"><svg viewBox="0 0 680 422" role="img" xmlns="http://www.w3.org/2000/svg"><title>Forecast reliability by the gap between sales stage and technical evaluation stage</title><desc>A six by six matrix. Cells where the technical stage is level with or ahead of the sales stage are green and callable. One step behind is amber. Two or more steps behind is red and overstated. Opportunity A sits at proposal with the technical track only at solution positioning. Opportunity B sits at solution validation with the technical track at solution acceptance.</desc>
+<text class="ts" x="40" y="48">Technical evaluation stage</text>
+<g class="c-green"><rect x="160" y="60" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="240" y="60" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="320" y="60" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="400" y="60" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="480" y="60" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="560" y="60" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<text class="ts" x="152" y="79" text-anchor="end" dominant-baseline="central">Technical closure</text>
+<g class="c-green"><rect x="160" y="102" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="240" y="102" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="320" y="102" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="400" y="102" width="76" height="38" rx="4" stroke-width="0.5"/><text class="th" x="438" y="121" text-anchor="middle" dominant-baseline="central">Opp B</text></g>
+<g class="c-green"><rect x="480" y="102" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-amber"><rect x="560" y="102" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<text class="ts" x="152" y="121" text-anchor="end" dominant-baseline="central">Solution acceptance</text>
+<g class="c-green"><rect x="160" y="144" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="240" y="144" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="320" y="144" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="400" y="144" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-amber"><rect x="480" y="144" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-red"><rect x="560" y="144" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<text class="ts" x="152" y="163" text-anchor="end" dominant-baseline="central">Proof of value</text>
+<g class="c-green"><rect x="160" y="186" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="240" y="186" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="320" y="186" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-amber"><rect x="400" y="186" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-red"><rect x="480" y="186" width="76" height="38" rx="4" stroke-width="0.5"/><text class="th" x="518" y="205" text-anchor="middle" dominant-baseline="central">Opp A</text></g>
+<g class="c-red"><rect x="560" y="186" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<text class="ts" x="152" y="205" text-anchor="end" dominant-baseline="central">Solution positioning</text>
+<g class="c-green"><rect x="160" y="228" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-green"><rect x="240" y="228" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-amber"><rect x="320" y="228" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-red"><rect x="400" y="228" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-red"><rect x="480" y="228" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-red"><rect x="560" y="228" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<text class="ts" x="152" y="247" text-anchor="end" dominant-baseline="central">Tech qualification</text>
+<g class="c-green"><rect x="160" y="270" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-amber"><rect x="240" y="270" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-red"><rect x="320" y="270" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-red"><rect x="400" y="270" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-red"><rect x="480" y="270" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<g class="c-red"><rect x="560" y="270" width="76" height="38" rx="4" stroke-width="0.5"/></g>
+<text class="ts" x="152" y="289" text-anchor="end" dominant-baseline="central">Not engaged</text>
+<text class="ts" x="198" y="334" text-anchor="middle">Qualify</text>
+<text class="ts" x="278" y="334" text-anchor="middle">Discovery</text>
+<text class="ts" x="358" y="334" text-anchor="middle">Sol. dev.</text>
+<text class="ts" x="438" y="334" text-anchor="middle">Sol. valid.</text>
+<text class="ts" x="518" y="334" text-anchor="middle">Proposal</text>
+<text class="ts" x="598" y="334" text-anchor="middle">Closed</text>
+<text class="th" x="398" y="360" text-anchor="middle">Commercial sales stage</text>
+<g class="c-green"><rect x="160" y="380" width="150" height="24" rx="4" stroke-width="0.5"/><text class="ts" x="235" y="392" text-anchor="middle" dominant-baseline="central">Call it</text></g>
+<g class="c-amber"><rect x="320" y="380" width="150" height="24" rx="4" stroke-width="0.5"/><text class="ts" x="395" y="392" text-anchor="middle" dominant-baseline="central">Watch it</text></g>
+<g class="c-red"><rect x="480" y="380" width="150" height="24" rx="4" stroke-width="0.5"/><text class="ts" x="555" y="392" text-anchor="middle" dominant-baseline="central">Overstated</text></g>
+</svg></div><figcaption><span class="fig-n">Fig.&nbsp;3</span><span class="fig-body"><b>Forecast reliability by stage gap: commercial sales stage against technical evaluation stage, with two example opportunities plotted.</b>The safe region is asymmetric on purpose. A technical track running ahead of the commercial one isn&rsquo;t a risk, it&rsquo;s an understated deal. Only the lower-right triangle is dangerous, and the further a deal sits from the alignment line, the less the stage value is worth.</span></figcaption></figure>
+<p><strong>Capture the behavioral signals alongside it.</strong> Proof entry gate cleared. Blueprint session held. Paid vehicle accepted. Technical decision maker&rsquo;s recommendation made. These are binary, they&rsquo;re either true or they aren&rsquo;t, and they explain <em>why</em> a deal sits where it does on the grid.</p>
+<p><strong>Output a confidence band with a stated reason, not a replacement number.</strong> A deal sitting two steps below the alignment line does not deserve the number its stage is carrying, and the model should say so, in words, in the deal record, where the AE and the SE can both see it and argue about it.</p>
+<p>That last part matters more than the math. The value isn&rsquo;t a cleverer number. It&rsquo;s that the disagreement between the commercial read and the technical read becomes visible instead of getting averaged into silence.</p>
+
+<div class="standout action" id="s7-monday">
+  <p class="label">For the forecast call</p>
+<h3 style="margin-top:0">Three questions on the forecast call</h3>
+  <p>You do not need a RevOps program to start. On the next forecast call, for every deal in Commit or late Best Case, ask only:</p>
+  <ol>
+    <li>What is the sales stage?</li>
+    <li>What is the technical stage?</li>
+    <li>Are they converging or diverging, and which way?</li>
+  </ol>
+  <p>Optional ten-deal audit: pull ten Commit opportunities, tag technical stage (even if the field doesn&rsquo;t exist yet, a column in a sheet is enough), mark converging vs diverging, and bring the diverging list into the room. The conversation changes the first time an AE and an SE disagree in public about the same deal. That disagreement is the product.</p>
+
+</div>
+
+</div></section><section class="sec" id="s8"><div class="sechead"><span class="num">8</span><h2>What it&rsquo;s worth</h2></div><div class="col"><div class="stats">
+  <div class="stat"><span class="v">25&ndash;40%</span><span class="k">Forecast accuracy lift, two companies, two CRMs</span></div>
+  <div class="stat"><span class="v">35&ndash;60%</span><span class="k">Reduction, proof start to technical closure</span></div>
+  <div class="stat"><span class="v">1 in 10 &rarr; 3 in 5</span><span class="k">Technical win rate</span></div>
+  <div class="stat"><span class="v">80%+</span><span class="k">Sustained proof conversion</span></div>
+  <div class="stat"><span class="v">130%</span><span class="k">Net revenue retention past the signature</span></div>
+</div>
+<p>Numbers from running this across three companies and eight years. Anonymized, because the point is that they&rsquo;re portable.</p>
+<div class="standout">
+  <p class="label">Evidence</p>
+<p><strong>Forecast accuracy here means commit-to-close variance</strong> (committed dollars vs closed-won in-period), improved twenty-five to forty percent. Secondary watch: stage-slip rate on late-stage deals. Two different companies, two different CRM platforms, the same mechanism: technical evaluation stages tied to the sales stage model and tracked as real data. The larger lift came at the org with the worse starting point, which is what you&rsquo;d expect and worth saying out loud. </p>
+
+</div>
+<p><strong>Time from proof start to technical closure dropped thirty-five to sixty percent.</strong> At one company, non-standard evaluations went from a hundred and twenty days to under forty-seven. At another, multi-POC pursuits came down sixty-three days off a hundred and seventy-five day baseline. Win rate did not drop. The speed comes from scoping and from the wrapup date being set at kickoff, not from cutting the evaluation short.</p>
+<p><strong>Technical win rate moved from roughly one in ten pursuits to three in five.</strong> Be suspicious of that number, and here&rsquo;s the honest context: a ten percent technical win rate is a broken baseline. That organization was entering proofs it had no business entering, which is exactly the failure the entry gate exists to prevent. Most of the improvement is selection, not persuasion. The method is worth a great deal when you&rsquo;re starting from chaos and proportionally less when you aren&rsquo;t.</p>
+<p><strong>POC and POV conversion sustained above eighty percent</strong>, held through a standing accountability framework on conversion, win rate, and time to value, backed by a reusable library of plays and assets.</p>
+<p>Worth separating those last two, because they measure different failures. Win rate asks whether you beat the competitor in evaluations you entered. Conversion asks whether the evaluations you entered were the right ones. High conversion with mediocre win rate means you&rsquo;re qualifying well and losing head-to-head, and the fix is technical. The reverse means you win what you enter and you&rsquo;re entering too few, and the fix is pipeline coverage. One number can&rsquo;t tell you which problem you have.</p>
+<p><strong>And past the signature:</strong> a hundred and thirty percent net revenue retention, ninety-five percent plus gross retention, thirty-five percent new ARR growth, eighteen percent expansion on renewals where pre-sales owned the technical strategy.</p>
+<p>That last set is the one most pre-sales leaders can&rsquo;t produce, and it&rsquo;s the strongest evidence for the argument in section six. A team that proves value properly before the signature sells things that get deployed, adopted, and renewed.</p>
+
+</div></section><section class="sec" id="s9"><div class="sechead"><span class="num">9</span><h2>What this actually asks of you</h2></div><div class="col">
+
+<div class="standout wide" id="s9-close">
+  <p class="label">Takeaway</p>
+  <p>Nothing in here is exotic. Three things to run:</p>
+  <ul>
+    <li>Technical stages beside sales stages, SE-owned, with real exit criteria (six, or four if your org is smaller).</li>
+    <li>Forecast by gap, distance and direction, not by sales stage alone.</li>
+    <li>Gate proofs. POV is the proving stage; POC is one vehicle inside it. Re-engage when proof isn&rsquo;t earned; govern what you must.</li>
+  </ul>
+  <p>The resistance was never that the model was wrong. It was that a second dimension had nowhere to go. The slot exists now. The question is whether you use it.</p>
+</div>
+
+<div class="standout" id="s9-presales">
+  <p class="label">If you lead pre-sales</p>
+  <p>Own the technical track. Publish exit criteria. Require the entry gate before any proof vehicle starts. Show up on the forecast call with stage, gap, and direction, not with a defense of SE hours. Your seat at that table is earned by making technical standing visible, not by arguing that it matters.</p>
+</div>
+
+<div class="standout" id="s9-cro">
+  <p class="label">If you are a sales SVP or CRO</p>
+  <p>Stop treating Commit as a single number. Ask the three questions. Protect the SE&rsquo;s right to decline a proof without that reading as obstruction; gates protect your forecast integrity as much as their capacity. When commercial green and technical red disagree, believe the disagreement; do not average it.</p>
+</div>
+
+<div class="standout action" id="s9-actions">
+  <p class="label">What to run</p>
+  <h3 style="margin-top:0">Monday</h3>
+  <ul>
+    <li>Pick ten Commit deals. Tag technical stage. Mark converging vs diverging.</li>
+    <li>Bring the diverging list to the next forecast call.</li>
+    <li>Publish one POC entry rule to AEs this week, even a one-pager with the illustrative 10 / 25 / 50 bands and a note that you will calibrate.</li>
+  </ul>
+  <h3>In ninety days</h3>
+  <ul>
+    <li>Technical win rate on a dashboard separate from AE close rate.</li>
+    <li>Commit-to-close variance tighter.</li>
+    <li>SE hours per closed-won down because proofs you would have lost never started.</li>
+    <li>AEs and SEs arguing about gap in the room instead of discovering it at QBR.</li>
+  </ul>
+  <p style="margin-bottom:0">Whether you track this in Homerun, Opine, Clari fields, or a shared sheet, the discipline is the point. The tooling is a subordinate clause.</p>
+</div>
+
+</div></section>
+</main>
+<script>
+(function(){
+  var bar=document.getElementById('prog');
+  addEventListener('scroll',function(){
+    var h=document.documentElement;
+    bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
